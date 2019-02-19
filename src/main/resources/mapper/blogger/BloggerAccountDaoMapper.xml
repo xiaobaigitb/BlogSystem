@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.blogos.dao.blogger.BloggerAccountDao">
+
+    <select id="getAccountByName" resultType="BloggerAccount">
+        SELECT
+            a.id,
+            a.username,
+            a.register_date,
+            a.password
+        FROM blogger_account a
+        WHERE a.username = #{bloggerName}
+    </select>
+
+    <select id="getAccountById" resultType="BloggerAccount">
+        SELECT
+            a.id,
+            a.username,
+            a.register_date,
+            a.password
+        FROM blogger_account a
+        WHERE a.id = #{bloggerId}
+    </select>
+
+    <update id="update" parameterType="BloggerAccount">
+        UPDATE blogger_account
+        <set>
+            <if test="username != null">
+                username=#{username},
+            </if>
+            <if test="password != null">
+                password=#{password},
+            </if>
+            <if test="registerDate != null">
+                registerDate=#{registerDate},
+            </if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
+    <insert id="insert" parameterType="BloggerAccount" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO blogger_account (
+        username,
+        password,
+        register_date
+        ) VALUE (
+        #{username},
+        #{password},
+        NOW()
+        )
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM blogger_account
+        WHERE id = #{value}
+    </delete>
+
+    <select id="listId" resultType="int">
+        select id
+        from blogger_account
+        limit 0, #{value}
+    </select>
+
+</mapper>

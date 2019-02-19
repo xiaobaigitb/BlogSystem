@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.blogos.dao.blog.BlogDao">
+
+    <select id="listBlog" resultType="Blog">
+        SELECT *
+        FROM blog b
+        WHERE state = #{status} AND b.id = #{bloggerId}
+    </select>
+
+    <select id="listBlogWithLimit" resultType="Blog">
+        SELECT *
+        FROM blog b
+        WHERE state = #{status} AND b.id = #{bloggerId}
+        LIMIT #{offset}, #{rows}
+    </select>
+
+    <select id="listAll" resultType="Blog">
+        SELECT *
+        FROM blog
+    </select>
+
+    <update id="update" parameterType="Blog">
+        UPDATE blog
+        <set>
+            <if test="bloggerId != null">
+                blogger_id=#{bloggerId},
+            </if>
+            <if test="categoryIds != null">
+                category_ids=#{categoryIds},
+            </if>
+            <if test="labelIds != null">
+                label_ids=#{labelIds},
+            </if>
+            <if test="state != null">
+                state=#{state},
+            </if>
+            <if test="title != null">
+                title=#{title},
+            </if>
+            <if test="content != null">
+                content=#{content},
+            </if>
+            <if test="contentMd != null">
+                content_md=#{contentMd},
+            </if>
+            <if test="summary != null">
+                summary=#{summary},
+            </if>
+            <if test="releaseDate != null">
+                release_date=#{releaseDate},
+            </if>
+
+            nearest_modify_date=NOW(),
+
+            <if test="keyWords != null">
+                key_words=#{keyWords},
+            </if>
+            <if test="wordCount != null">
+                word_count=#{wordCount},
+            </if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+
+    </update>
+
+    <delete id="delete">
+        DELETE FROM blog
+        WHERE id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="Blog" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO blog (
+        blogger_id,
+        category_ids,
+        label_ids,
+        state,
+        title,
+        content,
+        content_md,
+        summary,
+        release_date,
+        nearest_modify_date,
+        key_words,
+        word_count
+        ) VALUE (
+        #{bloggerId},
+        #{categoryIds},
+        #{labelIds},
+        ifnull(#{state}, 0), # state 0 为正在审核
+        #{title},
+        #{content},
+        #{contentMd},
+        #{summary},
+        NOW(),
+        NOW(),
+        #{keyWords},
+        ifnull(#{wordCount}, 0)
+        )
+    </insert>
+
+    <select id="listAllCategoryAndLabel" resultType="Blog">
+        SELECT
+            b.id,
+            b.category_ids,
+            b.label_ids
+        FROM blog b
+        WHERE b.blogger_id = #{bloggerId} AND b.state = #{status};
+    </select>
+
+    <select id="listBlogByBlogIds" resultType="Blog" parameterType="list">
+        SELECT *
+        FROM blog b WHERE b.id IN
+        <foreach collection="ids"
+                 item="id"
+                 open="("
+                 separator=","
+                 close=")">
+            #{id}
+        </foreach>
+        AND b.state=#{status} LIMIT #{offset},#{rows}
+    </select>
+
+    <select id="getBlogIdByUniqueKey" resultType="java.lang.Integer">
+        SELECT b.id
+        FROM blog b
+        WHERE b.blogger_id = #{bloggerId} AND b.title = #{title}
+    </select>
+
+    <select id="getBlogById" resultType="Blog">
+        SELECT *
+        FROM blog b
+        WHERE b.id = #{value}
+    </select>
+
+    <select id="getBlogIdById" resultType="java.lang.Integer">
+        SELECT b.id
+        FROM blog b
+        WHERE b.id = #{value}
+    </select>
+
+    <select id="listAllCategoryByBloggerId" resultType="Blog">
+        SELECT
+            b.id,
+            b.category_ids
+        FROM blog b
+        WHERE b.blogger_id = #{value}
+    </select>
+
+    <select id="listAllLabelByBloggerId" resultType="Blog">
+        SELECT
+            b.id,
+            b.label_ids
+        FROM blog b
+        WHERE b.blogger_id = #{value}
+    </select>
+
+    <select id="countBlogByCategory" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM blog b
+        WHERE b.blogger_id = #{bloggerId} AND b.state = #{state} AND locate(#{categoryId}, b.category_ids) > 0
+    </select>
+
+    <select id="countBlogByBloggerId" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM blog
+        WHERE blogger_id = #{bloggerId} AND state = #{state}
+    </select>
+
+    <select id="listAllWordCountByBloggerId" resultType="Blog">
+        SELECT
+            id,
+            word_count
+        FROM blog
+        WHERE blogger_id = #{bloggerId} AND state = #{state}
+    </select>
+
+    <select id="listAllByFormat" resultType="Blog">
+        SELECT
+        blogger_id,
+        category_ids,
+        label_ids,
+        state,
+        title,
+        <choose>
+            <when test="format == 1">
+                content,
+            </when>
+            <otherwise>
+                content_md,
+            </otherwise>
+        </choose>
+        summary,
+        release_date,
+        nearest_modify_date,
+        key_words,
+        word_count
+        FROM blog
+        WHERE blogger_id = #{bloggerId}
+    </select>
+
+    <select id="listAllIdByBloggerId" resultType="Blog">
+        SELECT id
+        FROM blog
+        WHERE blogger_id = #{value}
+    </select>
+
+</mapper>

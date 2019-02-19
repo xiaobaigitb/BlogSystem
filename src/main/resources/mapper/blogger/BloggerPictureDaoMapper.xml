@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.blogos.dao.blogger.BloggerPictureDao">
+
+    <select id="getPictureByCategory" resultType="BloggerPicture">
+        SELECT *
+        FROM blogger_picture p
+        WHERE p.category = #{category} AND p.blogger_id = #{bloggerId}
+    </select>
+
+    <select id="getPictureById" resultType="BloggerPicture">
+        SELECT *
+        FROM blogger_picture
+        WHERE id = #{value}
+    </select>
+
+    <select id="getBloggerUniquePicture" resultType="BloggerPicture">
+        SELECT *
+        FROM blogger_picture
+        WHERE category = #{category} AND blogger_id = #{bloggerId}
+    </select>
+
+    <select id="listPictureByBloggerId" resultType="BloggerPicture">
+        SELECT *
+        FROM blogger_picture
+        WHERE blogger_id = #{bloggerId}
+        LIMIT #{offset}, #{rows}
+    </select>
+
+    <select id="listPictureByBloggerAndCategory" resultType="BloggerPicture">
+        SELECT *
+        FROM blogger_picture
+        WHERE blogger_id = #{bloggerId} AND category = #{category}
+        LIMIT #{offset}, #{rows}
+    </select>
+
+    <select id="getUseCount" resultType="java.lang.Integer">
+        SELECT use_count
+        FROM blogger_picture
+        WHERE id = #{value}
+    </select>
+
+    <select id="getPictureByBloggerId" resultType="BloggerPicture">
+        SELECT *
+        FROM blogger_picture
+        WHERE blogger_id = #{value}
+    </select>
+
+    <update id="update" parameterType="BloggerPicture">
+        UPDATE blogger_picture
+        <set>
+            <if test="bloggerId != null">
+                blogger_id=#{bloggerId},
+            </if>
+            <if test="bewrite != null">
+                bewrite=#{bewrite},
+            </if>
+            <if test="category != null">
+                category=#{category},
+            </if>
+            <if test="path != null">
+                path=#{path},
+            </if>
+            <if test="title != null">
+                title=#{title},
+            </if>
+            <if test="uploadDate != null">
+                upload_date=#{uploadDate},
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <update id="updateUseCountPlus">
+        UPDATE blogger_picture
+        SET use_count = use_count + 1
+        WHERE id = #{value}
+    </update>
+
+    <update id="updateUseCountMinus">
+        UPDATE blogger_picture
+        SET use_count = use_count - 1
+        WHERE id = #{value}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM blogger_picture
+        WHERE id = #{value}
+    </delete>
+
+    <insert id="insert" parameterType="BloggerPicture" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO blogger_picture (
+        blogger_id,
+        bewrite,
+        category,
+        path,
+        title,
+        upload_date) VALUE (
+        #{bloggerId},
+        #{bewrite},
+        ifnull(#{category}, 0),
+        #{path},
+        #{title},
+        NOW())
+    </insert>
+
+</mapper>

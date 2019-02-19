@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--读者配置-->
+    <bean class="com.duan.blogos.manager.properties.AudienceProperties" name="audienceProperties">
+        <property name="requestBloggerBlogListCount" value="${audience.requestBloggerBlogListCount}"/>
+        <property name="requestBloggerBlogCommentCount" value="${audience.requestBloggerBlogCommentCount}"/>
+    </bean>
+
+    <!--数据库配置-->
+    <bean class="com.duan.blogos.manager.properties.DbProperties" name="dbProperties">
+        <property name="stringFiledSplitCharacterForNumber" value="${db.stringFiledSplitCharacterForNumber}"/>
+        <property name="stringFiledSplitCharacterForString" value="${db.stringFiledSplitCharacterForString}"/>
+    </bean>
+
+    <!--博主配置-->
+    <bean class="com.duan.blogos.manager.properties.BloggerProperties" name="bloggerProperties">
+        <property name="requestBloggerLinkCount" value="${blogger.requestBloggerLinkCount}"/>
+        <property name="bloggerImageRootPath" value="${blogger.bloggerImageRootPath}"/>
+        <property name="pictureManagerBloggerId" value="${blogger.pictureManagerBloggerId}"/>
+        <property name="requestBloggerPictureCount" value="${blogger.requestBloggerPictureCount}"/>
+        <property name="requestBloggerCollectCount" value="${blogger.requestBloggerCollectCount}"/>
+        <property name="defaultBlogCollectCategory" value="${blogger.defaultBlogCollectCategory}"/>
+        <property name="mainPageNavPos" value="${blogger.mainPageNavPos}"/>
+        <property name="requestBloggerBlogCategoryCount" value="${blogger.requestBloggerBlogCategoryCount}"/>
+        <property name="sessionNameOfBloggerId" value="${blogger.session.bloggerId}"/>
+        <property name="sessionNameOfBloggerName" value="${blogger.session.bloggerName}"/>
+        <property name="sessionBloggerLoginSignal" value="${blogger.session.bloggerLoginSignal}"/>
+        <property name="sessionNameOfErrorMsg" value="${blogger.session.errorMsg}"/>
+        <property name="requestBlogListCount" value="${blogger.requestBlogListCount}"/>
+        <property name="requestBloggerBlogLabelCount" value="${blog.requestBloggerBlogLabelCount}"/>
+        <property name="nameOfPageOwnerBloggerId" value="${blogger.pageOwnerBloggerId}"/>
+        <property name="nameOfPageOwnerBloggerName" value="${blogger.pageOwnerBloggerName}"/>
+        <property name="patchImportBlogTempPath" value="${blogger.patchImportBlogTempPath}"/>
+        <property name="patchDownloadBlogTempPath" value="${blogger.patchDownloadBlogTempPath}"/>
+    </bean>
+
+    <!--站点配置-->
+    <bean class="com.duan.blogos.manager.properties.WebsiteProperties" name="websiteProperties">
+        <property name="addr" value="${website.addr}"/>
+        <property name="urlConditionSplitCharacter" value="${website.urlConditionSplitCharacter}"/>
+        <property name="luceneIndexDir" value="${website.luceneIndexDir}"/>
+        <property name="manageEmailAddress" value="${website.manageEmailAddress}"/>
+        <property name="mailSenderAddress" value="${website.mailSenderAddress}"/>
+        <property name="mailSenderPassword" value="${website.mailSenderPassword}"/>
+        <property name="websiteActiveBloggerCount" value="${website.websiteActiveBloggerCount}"/>
+    </bean>
+
+    <!--管理者-->
+    <context:component-scan base-package="com.duan.blogos.manager"/>
+
+</beans>

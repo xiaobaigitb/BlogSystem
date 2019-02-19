@@ -1,0 +1,27 @@
+
+.quit {
+    color: rgba(255, 0, 0, 0.34);
+    background-color: transparent;
+    border: 0;
+    font-size: smaller;
+}
+
+.quit:hover {
+    color: red;
+}
+
+.operation {
+    color: dimgray;
+    cursor: pointer;
+    letter-spacing: 3px;
+    font-size: medium;
+    transition: color 300ms;
+}
+
+.operation:hover {
+    color: #00CBBA;
+}
+
+.line-sperate {
+    color: darkgray;
+}

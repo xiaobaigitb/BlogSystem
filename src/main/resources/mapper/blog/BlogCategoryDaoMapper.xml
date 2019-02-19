@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.blogos.dao.blog.BlogCategoryDao">
+
+    <select id="listCategoryById" resultType="BlogCategory">
+        SELECT * FROM blog_category c WHERE c.id IN
+        <foreach collection="ids"
+                 item="item"
+                 open="("
+                 separator=","
+                 close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="listCategoryByBloggerId" resultType="BlogCategory">
+        SELECT *
+        FROM blog_category
+        WHERE blogger_id = #{bloggerId}
+        LIMIT #{offset}, #{rows}
+    </select>
+
+    <select id="getCategory" resultType="BlogCategory">
+        SELECT *
+        FROM blog_category
+        WHERE id = #{categoryId} AND blogger_id = #{bloggerId}
+    </select>
+
+    <select id="countByBloggerId" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM blog_category
+        WHERE blogger_id = #{value}
+    </select>
+
+    <update id="update" parameterType="BlogCategory">
+        UPDATE blog_category
+        <set>
+            <if test="bloggerId != null">
+                blogger_id=#{bloggerId},
+            </if>
+            <if test="iconId != null">
+                icon_id=#{iconId},
+            </if>
+            <if test="title != null">
+                title=#{title},
+            </if>
+            <if test="bewrite != null">
+                bewrite=#{bewrite},
+            </if>
+            <if test="createDate != null">
+                create_date=#{createDate}
+            </if>
+        </set>
+
+        <where>
+            id=#{id}
+        </where>
+
+    </update>
+
+    <delete id="delete">
+        DELETE FROM blog_category
+        WHERE id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="BlogCategory" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO blog_category (
+        blogger_id,
+        icon_id,
+        title,
+        bewrite,
+        create_date
+        ) VALUE (
+        #{bloggerId},
+        #{iconId},
+        #{title},
+        #{bewrite},
+        NOW()
+        )
+    </insert>
+
+</mapper>

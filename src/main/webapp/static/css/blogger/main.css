@@ -1,0 +1,282 @@
+body {
+    padding-top: 100px;
+    font-family: "Segoe UI Semibold", 微软雅黑, serif;
+    /*font-weight: bold;*/
+
+    background-size: cover;
+    background-color: #F9FAFB;
+    /*background: url(/images/background.jpg) no-repeat fixed center center;*/
+}
+
+a {
+    cursor: pointer;
+}
+
+/*-------------------------------------------------------------------博文列表项*/
+.blog-list-item {
+    padding: 23px 19px;
+}
+
+.blog-list-item-title {
+    /*color: #35404C;*/
+    color: #09b0e1;
+    padding-left: 3px;
+}
+
+.blog-list-item-title:hover {
+    /*color: dimgray;*/
+    color: #089cc7;
+    cursor: pointer;
+}
+
+.list-group-item-count-text {
+    /*color: #8199AE;*/
+    font-size: x-small;
+}
+
+.text-clickable:hover {
+    color: black;
+    cursor: pointer;
+}
+
+.blog-list-item-summary {
+    font-size: 1.0em;
+    padding-top: 10px;
+    line-height: 24px;
+    color: black;
+    /*color: #575F66;*/
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.avatar {
+    text-align: center;
+    position: relative;
+}
+
+.avatar-img {
+    height: 140px;
+    /*border: solid 5px #f0f0f0;*/
+    /*width: 180px;*/
+}
+
+.avatar-img-editable:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.avatar-edit {
+    position: absolute;
+    margin-left: 4px;
+    margin-top: 4px;
+    z-index: 10;
+    color: dimgray;
+}
+
+.blogger-aboutme {
+    font-size: 0.9em;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.blogger-like-collect {
+    padding-left: 16px;
+    padding-right: 16px;
+    cursor: pointer;
+}
+
+.blogger-link {
+    padding-left: 16px;
+    padding-right: 16px;
+    word-break: break-all;
+}
+
+.blogger-link-item {
+    border: 0px;
+    color: black;
+    /*word-wrap: break-word;*/
+    display: inline-block;
+    /*text-wrap: normal;*/
+}
+
+.blog-list-item-label {
+    color: black;
+    display: inline-block;
+}
+
+.blogger-label-content {
+    padding-left: 16px;
+    padding-right: 16px;
+    word-break: break-all;
+}
+
+.blog-filter-text {
+    /*margin-right: 5%;*/
+    /*padding-right: 10px;*/
+    /*padding-left: 10px;*/
+    color: dimgray;
+    /*background-color: #dedede;*/
+    /*border-radius: 0 0 10px 0;*/
+    cursor: pointer;
+}
+
+.blog-filter-text:hover {
+    color: black;
+    /*background-color: #686868;*/
+}
+
+.blog-filter {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    border-top: solid 1px #d9d9d9;
+}
+
+.blog-category {
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: x-small;
+    border: solid 1px orangered;
+    cursor: pointer;
+    color: orangered;
+}
+
+.blog-category:hover {
+    background-color: orangered;
+    color: white;
+}
+
+.blog-link:hover {
+    color: black;
+}
+
+.blog-link {
+    color: gray;
+    font-size: x-small;
+    cursor: pointer;
+}
+
+.blog-filter-default {
+    border: solid 1px lightgray;
+    color: gray;
+    font-size: small;
+    padding: 0 14px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.blog-filter-default:hover {
+    background-color: rgba(128, 128, 128, 0.16);
+}
+
+.blog-filter-label-choose {
+    color: white;
+    cursor: pointer;
+    padding: 0 14px;
+    border-radius: 12px;
+    font-size: small;
+    background-color: green;
+    border: solid 1px darkgreen;
+    box-shadow: -3px 3px 10px #adadad;
+}
+
+.blog-filter-category-choose {
+    color: white;
+    cursor: pointer;
+    padding: 0 14px;
+    border-radius: 12px;
+    font-size: small;
+    background-color: red;
+    border: solid 1px darkred;
+    box-shadow: -3px 3px 10px #adadad;
+}
+
+span {
+    word-break: normal;
+    /*width: auto;*/
+    display: inline-block;
+    /*white-space: pre-wrap;*/
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.category-list-group {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.blogger-profile-title {
+    font-weight: bold;
+    font-family: 华文中宋, 方正姚体, serif;
+
+    font-size: medium;
+    margin-bottom: 16px;
+}
+
+.blogger-favourite {
+    font-size: medium;
+    border: 0;
+}
+
+/*----------------------页面右侧部分*/
+
+.blogger-profile {
+    padding: 23px 10px;
+    background-color: white;
+}
+
+.blogger-name {
+    margin-top: 10px;
+    color: black;
+    padding-left: 3px;
+    font-family: 方正姚体, serif;
+    font-weight: bold;
+}
+
+.sec-nav {
+    height: 100px;
+    background-color: white;
+    border-bottom: solid 1px #e6e6e6;
+}
+
+.search-container {
+    box-shadow: -2px 5px 10px whitesmoke;
+    border: solid 1px #DCE2E8;
+    border-radius: 5px;
+}
+
+.input-search {
+    border: 0;
+    background-color: transparent;
+    width: 300px;
+    height: 40px
+}
+
+.input-search-btn:hover {
+    color: black;
+}
+
+.input-search-btn {
+    border: 0;
+    color: dimgray;
+    background-color: transparent;
+    height: 40px;
+    cursor: pointer;
+}
+
+.complex-filter-btn:hover {
+    background-color: #f3f3f3;
+}
+
+.complex-filter-btn {
+    background-color: transparent;
+    height: 40px;
+    vertical-align: middle;
+    border: solid 1px #DCE2E8;
+    outline: 0;
+    color: dimgray;
+    padding-left: 8px;
+    padding-right: 8px
+}

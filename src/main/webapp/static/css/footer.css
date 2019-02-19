@@ -1,0 +1,14 @@
+
+.bottom-item a {
+    color: darkgray;
+}
+
+.powered-by {
+    font-size: smaller;
+    color: gray;
+}
+
+.nav-bottom {
+    padding: 16px 64px 0;
+    background-color: #202020;
+}

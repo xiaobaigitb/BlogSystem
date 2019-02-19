@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.blogos.dao.blog.BlogStatisticsDao">
+
+    <select id="getStatistics" resultType="BlogStatistics">
+        SELECT *
+        FROM blog_statistics s
+        WHERE s.blog_id = #{blogId};
+    </select>
+
+    <insert id="insert" parameterType="BlogStatistics" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO blog_statistics (
+        blog_id,
+        comment_count,
+        view_count,
+        reply_comment_count,
+        collect_count,
+        complain_count,
+        share_count,
+        admire_count,
+        like_count,
+        release_date
+        ) VALUE (
+        #{blogId},
+        ifnull(#{commentCount}, 0),
+        ifnull(#{viewCount}, 0),
+        ifnull(#{replyCommentCount}, 0),
+        ifnull(#{collectCount}, 0),
+        ifnull(#{complainCount}, 0),
+        ifnull(#{shareCount}, 0),
+        ifnull(#{admireCount}, 0),
+        ifnull(#{likeCount}, 0),
+        NOW()
+        )
+    </insert>
+
+    <update id="update" parameterType="BlogStatistics">
+        UPDATE blog_statistics
+        <set>
+            <if test="commentCount != null">
+                comment_count=#{commentCount},
+            </if>
+            <if test="viewCount != null">
+                view_count=#{viewCount},
+            </if>
+            <if test="replyCommentCount != null">
+                reply_comment_count=#{replyCommentCount},
+            </if>
+            <if test="collectCount != null">
+                collect_count=#{collectCount},
+            </if>
+            <if test="complainCount != null">
+                complain_count=#{complainCount},
+            </if>
+            <if test="shareCount != null">
+                share_count=#{shareCount},
+            </if>
+            <if test="admireCount != null">
+                admire_count=#{admireCount},
+            </if>
+            <if test="likeCount != null">
+                like_count=#{likeCount}
+            </if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
+    <delete id="delete" parameterType="integer">
+        DELETE FROM blog_statistics
+        WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByUnique" parameterType="integer">
+        DELETE FROM blog_statistics
+        WHERE blog_id = #{value}
+    </delete>
+
+    <update id="updateCommentCountPlus">
+        UPDATE blog_statistics
+        SET comment_count = comment_count + 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateViewCountPlus">
+        UPDATE blog_statistics
+        SET view_count = view_count + 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateReplyCommentCountPlus">
+        UPDATE blog_statistics
+        SET reply_comment_count = reply_comment_count + 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateCollectCountPlus">
+        UPDATE blog_statistics
+        SET collect_count = collect_count + 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateComplainCountPlus">
+        UPDATE blog_statistics
+        SET complain_count = complain_count + 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateShareCountPlus">
+        UPDATE blog_statistics
+        SET share_count = share_count + 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateAdmireCountPlus">
+        UPDATE blog_statistics
+        SET admire_count = admire_count + 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateLikeCountPlus">
+        UPDATE blog_statistics
+        SET like_count = like_count + 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateCommentCountMinus">
+        UPDATE blog_statistics
+        SET comment_count = comment_count - 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateViewCountMinus">
+        UPDATE blog_statistics
+        SET view_count = view_count - 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateReplyCommentCountMinus">
+        UPDATE blog_statistics
+        SET reply_comment_count = reply_comment_count - 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateCollectCountMinus">
+        UPDATE blog_statistics
+        SET collect_count = collect_count - 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateComplainCountMinus">
+        UPDATE blog_statistics
+        SET complain_count = complain_count - 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateShareCountMinus">
+        UPDATE blog_statistics
+        SET share_count = share_count - 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateAdmireCountMinus">
+        UPDATE blog_statistics
+        SET admire_count = admire_count - 1
+        WHERE blog_id = #{value}
+    </update>
+
+    <update id="updateLikeCountMinus">
+        UPDATE blog_statistics
+        SET like_count = like_count - 1
+        WHERE blog_id = #{value}
+    </update>
+
+
+    <select id="getCommentCount" resultType="java.lang.Integer">
+        SELECT comment_count
+        FROM blog_statistics
+        WHERE blog_id = #{value}
+    </select>
+
+    <select id="getViewCount" resultType="java.lang.Integer">
+        SELECT view_count
+        FROM blog_statistics
+        WHERE blog_id = #{value}
+    </select>
+
+    <select id="getReplyCommentCount" resultType="java.lang.Integer">
+        SELECT reply_comment_count
+        FROM blog_statistics
+        WHERE blog_id = #{value}
+    </select>
+
+    <select id="getCollectCount" resultType="java.lang.Integer">
+        SELECT collect_count
+        FROM blog_statistics
+        WHERE blog_id = #{value}
+    </select>
+
+    <select id="getComplainCount" resultType="java.lang.Integer">
+        SELECT complain_count
+        FROM blog_statistics
+        WHERE blog_id = #{value}
+    </select>
+
+    <select id="getShareCount" resultType="java.lang.Integer">
+        SELECT share_count
+        FROM blog_statistics
+        WHERE blog_id = #{value}
+    </select>
+
+    <select id="getAdmireCount" resultType="java.lang.Integer">
+        SELECT admire_count
+        FROM blog_statistics
+        WHERE blog_id = #{value}
+    </select>
+
+    <select id="getLikeCount" resultType="java.lang.Integer">
+        SELECT like_count
+        FROM blog_statistics
+        WHERE blog_id = #{value}
+    </select>
+
+
+</mapper>
